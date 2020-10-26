@@ -21,6 +21,14 @@ public class Ticket {
     @ManyToOne
     private User user;
 
+    public Ticket() {
+    }
+
+    public Ticket(MovieSession movieSession, User user) {
+        this.movieSession = movieSession;
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
