@@ -4,7 +4,9 @@ import com.cinema.model.dto.UserResponseDto;
 import com.cinema.service.UserService;
 import com.cinema.service.impl.mapper.UserMapper;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,8 +20,8 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-    @GetMapping
-    public UserResponseDto getByEmail(String email) {
-        return userMapper.mapUserToDto(userService.findByEmail(email).get());
+    @GetMapping("/by-email")
+    public UserResponseDto getByEmail(@RequestParam String email) {
+            return userMapper.mapUserToDto(userService.findByEmail(email).get());
     }
 }

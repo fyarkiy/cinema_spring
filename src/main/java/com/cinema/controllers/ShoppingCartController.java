@@ -12,6 +12,7 @@ import com.cinema.service.impl.mapper.ShoppingCartMapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,20 +36,16 @@ public class ShoppingCartController {
         this.movieSessionMapper = movieSessionMapper;
     }
 
-    @PostMapping
+    @PostMapping("/movie-sessions")
     public ShoppingCart addMovies(@RequestParam MovieSessionRequestDto movieSessionRequestDto,
                                   @RequestParam Long userId) {
-        ShoppingCartRequestDto shoppingCartRequestDto = new ShoppingCartRequestDto();
-        List<Ticket> tickets = new ArrayList<>();
-        tickets.add(new Ticket(movieSessionMapper.mapToMovieSessionFromDto(movieSessionRequestDto),
-                userService.getById(userId)));
-        shoppingCartRequestDto.setUser(userService.getById(userId));
-        shoppingCartRequestDto.setTickets(tickets);
-        return shoppingCartMapper.mapDtoToCart(shoppingCartRequestDto);
+        return shoppingCartService.addSession(movieSessionMapper
+                        .mapToMovieSessionFromDto(movieSessionRequestDto),
+                        userService.getById(userId));
     }
 
-    @GetMapping("/{userId}")
-    public ShoppingCartResponseDto getByUser(@RequestParam Long userId) {
+    @GetMapping("/by-user/{userId}")
+    public ShoppingCartResponseDto getByUser(@PathVariable Long userId) {
         return shoppingCartMapper
                 .mapCartToDto(shoppingCartService.getByUser(userService.getById(userId)));
     }
