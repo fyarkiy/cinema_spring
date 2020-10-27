@@ -6,7 +6,6 @@ import com.cinema.service.ShoppingCartService;
 import com.cinema.service.UserService;
 import com.cinema.service.impl.mapper.ShoppingCartMapper;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,8 +36,8 @@ public class ShoppingCartController {
                 userService.getById(userId));
     }
 
-    @GetMapping("/by-user/{userId}")
-    public ShoppingCartResponseDto getByUser(@PathVariable Long userId) {
+    @GetMapping("/by-user")
+    public ShoppingCartResponseDto getByUser(@RequestParam Long userId) {
         return shoppingCartMapper
                 .mapCartToDto(shoppingCartService.getByUser(userService.getById(userId)));
     }
