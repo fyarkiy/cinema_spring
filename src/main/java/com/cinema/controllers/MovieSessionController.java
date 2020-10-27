@@ -40,7 +40,7 @@ public class MovieSessionController {
         return movieSessionService.findAvailableSessions(id,
                 LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMATTER)))
                 .stream()
-                .map(ms -> movieSessionMapper.mapMovieSessionToDto(ms))
+                .map(movieSessionMapper::mapMovieSessionToDto)
                 .collect(Collectors.toList());
     }
 }
