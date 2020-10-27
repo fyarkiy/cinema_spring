@@ -24,6 +24,14 @@ public class ShoppingCart {
     @Column(name = "ticket_id")
     private List<Ticket> tickets;
 
+    public ShoppingCart() {
+    }
+
+    public ShoppingCart(User user, List<Ticket> tickets) {
+        this.user = user;
+        this.tickets = tickets;
+    }
+
     public Long getId() {
         return id;
     }
