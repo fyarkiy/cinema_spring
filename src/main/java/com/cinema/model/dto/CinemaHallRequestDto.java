@@ -6,9 +6,9 @@ import javax.validation.constraints.Size;
 
 public class CinemaHallRequestDto {
     @NotNull(message = "please provide capacity")
-    @Min(20)
+    @Min(value = 20, message = "capacity should be 20 or more")
     private Integer capacity;
-    @Size(max = 20)
+    @Size(max = 20, message = "description should not exceed 20 characters")
     private String description;
 
     public Integer getCapacity() {

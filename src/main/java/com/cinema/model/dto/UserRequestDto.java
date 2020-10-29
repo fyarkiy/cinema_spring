@@ -8,16 +8,16 @@ import javax.validation.constraints.Size;
 @PasswordMatchConstraint(
         password = "password",
         repeatPassword = "repeatPassword",
-        message = "Passwords are not the same!"
+        message = "Password and repeat password are not the same!"
 )
 public class UserRequestDto {
     @EmailConstraint
     private String email;
-    @NotNull
-    @Size(min = 8)
+    @NotNull(message = "password can't be null")
+    @Size(min = 8, message = "password should have at least 8 characters")
     private String password;
-    @NotNull
-    @Size(min = 8)
+    @NotNull(message = "repeat password can't be null")
+    @Size(min = 8, message = "password should have at least 8 characters")
     private String repeatPassword;
 
     public String getEmail() {

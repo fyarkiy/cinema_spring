@@ -4,9 +4,9 @@ import javax.validation.constraints.NotNull;
 
 public class MovieSessionRequestDto {
     private String showTime;
-    @NotNull
+    @NotNull (message = "Movie Id can't be null")
     private Long movieId;
-    @NotNull
+    @NotNull (message = "Cinema hall id can't be null")
     private Long cinemaHallId;
 
     public String getShowTime() {
