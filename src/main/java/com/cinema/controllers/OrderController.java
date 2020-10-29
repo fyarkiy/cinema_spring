@@ -2,6 +2,7 @@ package com.cinema.controllers;
 
 import com.cinema.model.Order;
 import com.cinema.model.ShoppingCart;
+import com.cinema.model.User;
 import com.cinema.model.dto.OrderResponseDto;
 import com.cinema.service.OrdersService;
 import com.cinema.service.ShoppingCartService;
@@ -34,22 +35,22 @@ public class OrderController {
     }
 
     @PostMapping("/complete")
-    public OrderResponseDto completeOrder(Authentication authentication) {
-        UserDetails principle = (UserDetails) authentication.getPrincipal();
-        String email = principle.getUsername();
-        ShoppingCart shoppingCart = shoppingCartService
-                .getByUser(userService.findByEmail(email).orElseThrow());
-        Order order = ordersService.completeOrder(shoppingCart.getTickets(),
-                shoppingCart.getUser());
+    public OrderResponseDto completeOrder(Authentication auth) {
+        User user = getCurrentUser(auth);
+        ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
+        Order order = ordersService.completeOrder(shoppingCart.getTickets(), user);
         return orderMapper.mapToDtoFromOrder(order);
     }
 
     @GetMapping
-    public List<OrderResponseDto> getOrderHistory(Authentication authentication) {
-        UserDetails principle = (UserDetails) authentication.getPrincipal();
-        return ordersService.getOrderHistory(userService
-                .findByEmail(principle.getUsername()).orElseThrow()).stream()
+    public List<OrderResponseDto> getOrderHistory(Authentication auth) {
+        return ordersService.getOrderHistory(getCurrentUser(auth)).stream()
                 .map(orderMapper::mapToDtoFromOrder)
                 .collect(Collectors.toList());
+    }
+
+    private User getCurrentUser(Authentication authentication) {
+        UserDetails principle = (UserDetails) authentication.getPrincipal();
+        return userService.findByEmail(principle.getUsername()).orElseThrow();
     }
 }
