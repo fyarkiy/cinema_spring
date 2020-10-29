@@ -3,7 +3,6 @@ package com.cinema.service.impl;
 import com.cinema.dao.UserDao;
 import com.cinema.model.User;
 import com.cinema.service.UserService;
-import com.cinema.util.HashUtil;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User add(User user) {
-        user.setSalt(HashUtil.getSalt());
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return userDao.add(user);
     }
