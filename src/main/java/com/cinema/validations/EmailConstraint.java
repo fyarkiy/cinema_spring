@@ -1,4 +1,4 @@
-package com.cinema.config.validations;
+package com.cinema.validations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

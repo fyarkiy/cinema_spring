@@ -1,7 +1,7 @@
 package com.cinema.model.dto;
 
-import com.cinema.config.validations.EmailConstraint;
-import com.cinema.config.validations.PasswordMatchConstraint;
+import com.cinema.validations.EmailConstraint;
+import com.cinema.validations.PasswordMatchConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
