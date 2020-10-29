@@ -9,10 +9,11 @@ import com.cinema.service.UserService;
 import com.cinema.service.impl.mapper.OrderMapper;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,14 +34,21 @@ public class OrderController {
     }
 
     @PostMapping("/complete")
-    public Order completeOrder(@RequestParam Long userId) {
-        ShoppingCart shoppingCart = shoppingCartService.getByUser(userService.getById(userId));
-        return ordersService.completeOrder(shoppingCart.getTickets(), shoppingCart.getUser());
+    public OrderResponseDto completeOrder(Authentication authentication) {
+        UserDetails principle = (UserDetails) authentication.getPrincipal();
+        String email = principle.getUsername();
+        ShoppingCart shoppingCart = shoppingCartService
+                .getByUser(userService.findByEmail(email).orElseThrow());
+        Order order = ordersService.completeOrder(shoppingCart.getTickets(),
+                shoppingCart.getUser());
+        return orderMapper.mapToDtoFromOrder(order);
     }
 
     @GetMapping
-    public List<OrderResponseDto> getOrderHistory(@RequestParam Long userId) {
-        return ordersService.getOrderHistory(userService.getById(userId)).stream()
+    public List<OrderResponseDto> getOrderHistory(Authentication authentication) {
+        UserDetails principle = (UserDetails) authentication.getPrincipal();
+        return ordersService.getOrderHistory(userService
+                .findByEmail(principle.getUsername()).orElseThrow()).stream()
                 .map(orderMapper::mapToDtoFromOrder)
                 .collect(Collectors.toList());
     }
