@@ -17,9 +17,9 @@ public class PasswordMatchValidator
 
     public boolean isValid(UserRequestDto userRequestDto, ConstraintValidatorContext context) {
 
-        Object passwordValue = new BeanWrapperImpl(userRequestDto)
+        String passwordValue = (String) new BeanWrapperImpl(userRequestDto)
                 .getPropertyValue(password);
-        Object repeatPasswordValue = new BeanWrapperImpl(userRequestDto)
+        String repeatPasswordValue = (String) new BeanWrapperImpl(userRequestDto)
                 .getPropertyValue(repeatPassword);
 
         if (passwordValue != null) {
