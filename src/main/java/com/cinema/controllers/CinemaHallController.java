@@ -7,6 +7,7 @@ import com.cinema.service.CinemaHallService;
 import com.cinema.service.impl.mapper.CinemaHallMapper;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class CinemaHallController {
     }
 
     @PostMapping
-    public CinemaHall addCinemaHall(@RequestBody CinemaHallRequestDto cinemaHallRequestDto) {
+    public CinemaHall addCinemaHall(@RequestBody @Valid CinemaHallRequestDto cinemaHallRequestDto) {
         return cinemaHallService.add(cinemaHallMapper.mapDtoToCinemaHall(cinemaHallRequestDto));
     }
 

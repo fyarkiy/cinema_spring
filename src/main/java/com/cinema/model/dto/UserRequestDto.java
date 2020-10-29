@@ -2,6 +2,7 @@ package com.cinema.model.dto;
 
 import com.cinema.config.validations.EmailConstraint;
 import com.cinema.config.validations.PasswordMatchConstraint;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @PasswordMatchConstraint(
@@ -12,8 +13,10 @@ import javax.validation.constraints.Size;
 public class UserRequestDto {
     @EmailConstraint
     private String email;
+    @NotNull
     @Size(min = 8)
     private String password;
+    @NotNull
     @Size(min = 8)
     private String repeatPassword;
 
