@@ -4,7 +4,6 @@ import com.cinema.dao.UserDao;
 import com.cinema.model.User;
 import com.cinema.service.UserService;
 import java.util.Optional;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
