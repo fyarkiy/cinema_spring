@@ -1,11 +1,7 @@
 package com.cinema.model.dto;
 
-import javax.validation.constraints.NotNull;
-
 public class TicketResponseDto {
-    @NotNull
     private Long movieSessionId;
-    @NotNull
     private Long userId;
 
     public TicketResponseDto() {

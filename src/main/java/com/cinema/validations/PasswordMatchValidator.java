@@ -22,6 +22,6 @@ public class PasswordMatchValidator
         String repeatPasswordValue = (String) new BeanWrapperImpl(userRequestDto)
                 .getPropertyValue(repeatPassword);
 
-        return passwordValue == null || passwordValue.equals(repeatPasswordValue);
+        return passwordValue != null && passwordValue.equals(repeatPasswordValue);
     }
 }

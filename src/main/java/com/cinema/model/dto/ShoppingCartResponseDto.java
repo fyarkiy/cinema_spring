@@ -1,12 +1,9 @@
 package com.cinema.model.dto;
 
 import java.util.List;
-import javax.validation.constraints.NotNull;
 
 public class ShoppingCartResponseDto {
-    @NotNull
     private Long id;
-    @NotNull
     private Long userId;
     private List<TicketResponseDto> tickets;
 
