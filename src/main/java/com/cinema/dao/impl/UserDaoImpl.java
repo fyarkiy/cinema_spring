@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao {
         try (Session session = sessionFactory.openSession()) {
             Query<User> userQuery =
                     session.createQuery("from User u "
-                            + "left join fetch u.roles roles where u.email = :email", User.class);
+                            + "join fetch u.roles roles where u.email = :email", User.class);
             userQuery.setParameter("email", email);
             return userQuery.uniqueResultOptional();
         } catch (Exception e) {
