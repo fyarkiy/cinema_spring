@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
-    private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
+    private static final Logger logger = Logger.getLogger(RoleDaoImpl.class);
 
     private final SessionFactory sessionFactory;
 
@@ -47,7 +47,7 @@ public class RoleDaoImpl implements RoleDao {
     public Role getRoleByName(RoleName name) {
         try (Session session = sessionFactory.openSession()) {
             Query<Role> roleQuery =
-                    session.createQuery("from Role where roleName = :rolename", Role.class);
+                    session.createQuery("from Role where roleName =: rolename", Role.class);
             roleQuery.setParameter("rolename", name);
             return roleQuery.uniqueResult();
         } catch (Exception e) {
