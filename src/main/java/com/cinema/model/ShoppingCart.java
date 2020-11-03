@@ -61,7 +61,7 @@ public class ShoppingCart {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ShoppingCart)) {
+        if (o.getClass() != ShoppingCart.class) {
             return false;
         }
         ShoppingCart that = (ShoppingCart) o;

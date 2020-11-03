@@ -46,7 +46,7 @@ public class Role {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Role)) {
+        if (o.getClass() != Role.class) {
             return false;
         }
         Role role = (Role) o;

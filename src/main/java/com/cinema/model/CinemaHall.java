@@ -60,7 +60,7 @@ public class CinemaHall {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CinemaHall)) {
+        if (o.getClass() != CinemaHall.class) {
             return false;
         }
         CinemaHall that = (CinemaHall) o;

@@ -69,7 +69,7 @@ public class MovieSession {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof MovieSession)) {
+        if (o.getClass() != MovieSession.class) {
             return false;
         }
         MovieSession that = (MovieSession) o;

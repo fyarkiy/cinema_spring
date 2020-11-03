@@ -58,7 +58,7 @@ public class Ticket {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Ticket)) {
+        if (o.getClass() != Ticket.class) {
             return false;
         }
         Ticket ticket = (Ticket) o;
