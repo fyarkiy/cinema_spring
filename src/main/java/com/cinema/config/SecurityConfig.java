@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder encoder;
 
@@ -38,9 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/cinema-halls/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/movie-sessions/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/movie-sessions/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/shopping-carts/**").hasRole("CLIENT")
-                //  .antMatchers(HttpMethod.GET,"/orders/**").hasRole("CLIENT")
+                .antMatchers("/shopping-carts/**").hasRole("CLIENT")
                 .antMatchers("/orders/").hasRole("CLIENT")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .permitAll()
