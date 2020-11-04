@@ -58,7 +58,7 @@ public class Ticket {
         if (this == o) {
             return true;
         }
-        if (o.getClass() != Ticket.class) {
+        if (o == null || o.getClass() != Ticket.class) {
             return false;
         }
         Ticket ticket = (Ticket) o;

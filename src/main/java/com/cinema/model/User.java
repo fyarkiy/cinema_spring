@@ -65,7 +65,7 @@ public class User {
         if (this == o) {
             return true;
         }
-        if (o.getClass() != User.class) {
+        if (o == null || o.getClass() != User.class) {
             return false;
         }
         User user = (User) o;
