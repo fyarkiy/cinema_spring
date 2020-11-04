@@ -55,7 +55,7 @@ public class Movie {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Movie)) {
+        if (o == null || o.getClass() != Movie.class) {
             return false;
         }
         Movie movie = (Movie) o;

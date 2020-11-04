@@ -74,7 +74,7 @@ public class Order {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Order)) {
+        if (o == null || o.getClass() != Order.class) {
             return false;
         }
         Order orders = (Order) o;

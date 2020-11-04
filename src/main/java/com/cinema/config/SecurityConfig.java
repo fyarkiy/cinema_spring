@@ -1,30 +1,41 @@
 package com.cinema.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder encoder;
+
+    public SecurityConfig(UserDetailsService userDetailsService, PasswordEncoder encoder) {
+        this.userDetailsService = userDetailsService;
+        this.encoder = encoder;
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .inMemoryAuthentication()
-                .passwordEncoder(getEncoder())
-                .withUser("admin@gmail.com")
-                .password(getEncoder().encode("1234"))
-                .roles("ADMIN");
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(encoder);
     }
 
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/movies/**",
+                        "/cinema-halls/**", "/movie-sessions/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/movies/**",
+                        "/cinema-halls/**", "/movie-sessions/**").permitAll()
+                .antMatchers("/shopping-carts/**", "/orders/").hasRole("CLIENT")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -33,10 +44,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable();
-    }
-
-    @Bean
-    public PasswordEncoder getEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
